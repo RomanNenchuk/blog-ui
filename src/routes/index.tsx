@@ -1,39 +1,151 @@
-import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CircularProgress,
+  Divider,
+  Avatar,
+  Stack,
+} from "@mui/material";
 
-export const Route = createFileRoute('/')({
-  component: App,
-})
+type Post = {
+  id: number;
+  title: string;
+  body: string;
+  author: string;
+  userId: string;
+};
 
-function App() {
+// Функція для стабільного кольору з рядка
+function stringToColor(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const color = Math.floor(
+    Math.abs(Math.sin(hash) * 16777215) % 16777215
+  ).toString(16);
+  return `#${"0".repeat(6 - color.length) + color}`;
+}
+
+// Симуляція запиту постів з автором
+async function fetchPosts(): Promise<Post[]> {
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=6"
+  );
+  const data = await res.json();
+  return data.map((post: any) => ({
+    id: post.id,
+    title: post.title,
+    body: post.body,
+    author: `Автор ${post.userId}`,
+    userId: String(post.userId),
+  }));
+}
+
+export const Route = createFileRoute("/")({
+  component: PostsPage,
+});
+
+function PostsPage() {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+  });
+
+  if (isLoading)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" mt={6}>
+        <CircularProgress />
+      </Box>
+    );
+
+  if (isError)
+    return (
+      <Box display="flex" justifyContent="center" mt={6}>
+        <Typography variant="subtitle1" color="error">
+          Не вдалося завантажити публікації
+        </Typography>
+      </Box>
+    );
+
   return (
-    <div className="text-center">
-      <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
-        <img
-          src={logo}
-          className="h-[40vmin] pointer-events-none animate-[spin_20s_linear_infinite]"
-          alt="logo"
-        />
-        <p>
-          Edit <code>src/routes/index.tsx</code> and save to reload.
-        </p>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://tanstack.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn TanStack
-        </a>
-      </header>
-    </div>
-  )
+    <Box maxWidth="800px" mx="auto" px={2} py={4}>
+      <Typography variant="h4" gutterBottom fontWeight={600}>
+        Останні публікації
+      </Typography>
+
+      <Grid container spacing={3}>
+        {data?.map((post) => (
+          <Grid key={post.id} size={12}>
+            <Card
+              elevation={1}
+              sx={{
+                borderRadius: 3,
+                p: 2,
+                transition: "box-shadow 0.2s ease",
+                "&:hover": {
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                },
+              }}
+            >
+              <CardContent>
+                {/* Автор зверху */}
+                <Stack direction="row" alignItems="center" spacing={1.5} mb={2}>
+                  <Avatar
+                    sx={{
+                      bgcolor: stringToColor(post.userId),
+                      width: 36,
+                      height: 36,
+                      fontSize: "0.9rem",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {post.author.charAt(6)} {/* літера з імені */}
+                  </Avatar>
+                  <Typography variant="subtitle2" color="text.secondary">
+                    {post.author}
+                  </Typography>
+                </Stack>
+
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  sx={{
+                    fontWeight: 600,
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                  }}
+                >
+                  {post.title}
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    mb: 2,
+                    display: "-webkit-box",
+                    WebkitLineClamp: 4,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                  }}
+                >
+                  {post.body}
+                </Typography>
+
+                <Divider />
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
 }
