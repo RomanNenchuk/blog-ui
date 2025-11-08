@@ -8,5 +8,6 @@ type Post = {
   title: string;
   body: string;
   author: PostAuthor;
+  createdAt: Date;
   imageUrl?: string;
 };
