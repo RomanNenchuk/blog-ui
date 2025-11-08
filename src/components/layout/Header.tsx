@@ -86,7 +86,6 @@ export default function Header({ currentPage }: HeaderProps) {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link
               to={"/"}
-              search={{ sort: "recent" }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -101,7 +100,7 @@ export default function Header({ currentPage }: HeaderProps) {
                 component="div"
                 sx={{ fontWeight: 700, display: "flex", alignItems: "center" }}
               >
-                LinkUp
+                Blog
               </Typography>
             </Link>
           </Box>

@@ -32,6 +32,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [checkedAuth, setCheckedAuth] = useState(false);
 
+  console.log(token);
+
   useEffect(() => {
     const refresh = async () => {
       const { success, data: accessToken } = await refreshToken();
@@ -71,7 +73,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       async (error) => {
         const originalRequest = error.config;
 
+        if (originalRequest.url.includes("/refresh")) {
+          return Promise.reject(error);
+        }
+
         if (error.response?.status === 401 && !originalRequest._retry) {
+          console.log("retry");
+
           const { success, data: accessToken } = await refreshToken();
           if (success && accessToken) {
             setToken(accessToken);

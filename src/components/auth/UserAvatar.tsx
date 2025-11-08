@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 
 type UserAvatarProps = {
   id: string;
-  displayName: string;
+  fullname: string;
   size?: number;
 };
 
@@ -22,14 +22,12 @@ function stringToInitials(name: string): string {
 
 export default function UserAvatar({
   id,
-  displayName,
+  fullname,
   size = 56,
 }: UserAvatarProps) {
-  console.log(id);
-
   const hue = stringToHue(id);
-  const color1 = `hsl(${hue}, 10%, 10%)`;
-  const color2 = `hsl(${(hue + 40) % 180}, 10%, 10%)`;
+  const color1 = `hsl(${hue}, 70%, 70%)`;
+  const color2 = `hsl(${(hue + 40) % 180}, 60%, 70%)`;
 
   return (
     <Avatar
@@ -52,7 +50,7 @@ export default function UserAvatar({
         },
       }}
     >
-      {stringToInitials(displayName)}
+      {stringToInitials(fullname)}
     </Avatar>
   );
 }

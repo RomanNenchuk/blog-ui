@@ -15,7 +15,7 @@ export default function AuthButton({ variant = "text" }: AuthButtonProps) {
 
   return user ? (
     <Button onClick={handleProfileClick} sx={{ textTransform: "none" }}>
-      <UserAvatar id={user.id} size={35} displayName={user.displayName} />
+      <UserAvatar id={user.id} size={35} fullname={user.fullname} />
     </Button>
   ) : (
     <Button

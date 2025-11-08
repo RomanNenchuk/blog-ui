@@ -1,6 +1,6 @@
 type User = {
   id: string;
-  displayName: string;
+  fullname: string;
   email: string;
 };
 
