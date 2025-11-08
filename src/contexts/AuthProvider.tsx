@@ -8,10 +8,11 @@ import {
 } from "react";
 import type { InternalAxiosRequestConfig } from "axios";
 import { apiClient } from "@/api/clients";
-import { getCurrentUser, refreshToken } from "@/api/auth";
+import { refreshToken } from "@/api/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
+import { getCurrentUser } from "@/api/profile";
 
 export type AuthContextType = {
   user: User | undefined;
@@ -42,6 +43,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     refresh();
   }, []);
+
+  console.log(token);
 
   const { data: user, isLoading: isUserLoading } = useQuery({
     queryKey: ["me", token],

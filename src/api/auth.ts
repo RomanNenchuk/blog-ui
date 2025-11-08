@@ -10,14 +10,9 @@ export const refreshToken = async (): Promise<ApiResponse<string>> => {
   } catch (error: any) {
     return {
       success: false,
-      message: error.response.data,
+      message: error.response,
     };
   }
-};
-
-export const getCurrentUser = async (): Promise<User> => {
-  const response = await apiClient.get("/auth/me");
-  return response.data;
 };
 
 export async function register(data: RegisterPayload): Promise<string> {

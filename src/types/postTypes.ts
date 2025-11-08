@@ -1,6 +1,6 @@
 type PostAuthor = {
   id: string;
-  name: string;
+  fullname: string;
 };
 
 type Post = {

@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 
 type UserAvatarProps = {
   id: string;
-  displayName: string;
+  fullname: string;
   size?: number;
 };
 
@@ -22,7 +22,7 @@ function stringToInitials(name: string): string {
 
 export default function UserAvatar({
   id,
-  displayName,
+  fullname,
   size = 56,
 }: UserAvatarProps) {
   const hue = stringToHue(id);
@@ -50,7 +50,7 @@ export default function UserAvatar({
         },
       }}
     >
-      {stringToInitials(displayName)}
+      {stringToInitials(fullname)}
     </Avatar>
   );
 }
