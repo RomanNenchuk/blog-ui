@@ -4,7 +4,7 @@ type PostAuthor = {
 };
 
 type Post = {
-  id: number;
+  id: string;
   title: string;
   body: string;
   author: PostAuthor;

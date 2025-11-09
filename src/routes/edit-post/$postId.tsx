@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "@/components/layout/Header";
 import { getPostById, updatePost } from "@/api/post";
 import { postSchema, type PostFormData } from "@/schemas/postSchemas";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/edit-post/$postId")({
   component: EditPostPage,
@@ -50,12 +51,14 @@ function EditPostPage() {
   });
 
   // Prefill form when data is loaded
-  if (post && !isLoading) {
-    reset({
-      title: post.title,
-      body: post.body,
-    });
-  }
+  useEffect(() => {
+    if (post) {
+      reset({
+        title: post.title,
+        body: post.body,
+      });
+    }
+  }, [post, reset]);
 
   const {
     mutateAsync: handleUpdate,
@@ -88,9 +91,7 @@ function EditPostPage() {
               <CircularProgress />
             </Stack>
           ) : isError ? (
-            <Typography color="error" align="center">
-              Failed to load post.
-            </Typography>
+            <Typography align="center">Failed to load post.</Typography>
           ) : (
             <>
               <Typography variant="h4" fontWeight={600} mb={3}>

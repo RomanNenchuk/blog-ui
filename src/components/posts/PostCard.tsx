@@ -2,13 +2,25 @@ import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { formatDistanceToNow } from "date-fns";
 import UserAvatar from "../auth/UserAvatar";
+import { useNavigate } from "@tanstack/react-router";
 
-export default function PostCard({ post }: { post: Post }) {
+export default function PostCard({
+  post,
+  detailed = false,
+}: {
+  post: Post;
+  detailed?: boolean;
+}) {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const handlePostClick = () => {
+    navigate({ to: "/posts/$postId", params: { postId: post.id } });
+  };
 
   return (
-    <Grid key={post.id} size={{ xs: 12, sm: 6 }}>
+    <Grid size={{ xs: 12, sm: 6 }}>
       <Card
+        onClick={handlePostClick}
         variant="outlined"
         sx={{
           borderRadius: 3,
@@ -18,6 +30,7 @@ export default function PostCard({ post }: { post: Post }) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          cursor: "pointer",
           transition: "border-color 0.2s ease, transform 0.15s ease",
           "&:hover": {
             borderColor: theme.palette.text.secondary,
@@ -51,10 +64,16 @@ export default function PostCard({ post }: { post: Post }) {
           <Typography
             variant="body1"
             fontWeight={700}
-            textOverflow="ellipsis"
-            overflow="hidden"
             sx={{
               mb: 1,
+              overflow: detailed ? "visible" : "hidden",
+              textOverflow: detailed ? "clip" : "ellipsis",
+              whiteSpace: detailed ? "normal" : "nowrap",
+              ...(detailed && {
+                whiteSpace: "normal",
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+              }),
             }}
           >
             {post.title}
@@ -62,9 +81,16 @@ export default function PostCard({ post }: { post: Post }) {
 
           <Typography
             variant="body2"
-            textOverflow="ellipsis"
-            overflow="hidden"
             color="text.secondary"
+            sx={{
+              overflow: detailed ? "visible" : "hidden",
+              textOverflow: detailed ? "clip" : "ellipsis",
+              ...(detailed && {
+                whiteSpace: "normal",
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+              }),
+            }}
           >
             {post.body}
           </Typography>
