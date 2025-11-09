@@ -1,9 +1,12 @@
 import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { formatDistanceToNow } from "date-fns";
 import UserAvatar from "../auth/UserAvatar";
 
 export default function PostCard({ post }: { post: Post }) {
   const theme = useTheme();
+
+  console.log(post);
 
   return (
     <Grid key={post.id} size={{ xs: 12, sm: 6 }}>
@@ -40,7 +43,9 @@ export default function PostCard({ post }: { post: Post }) {
                 color="text.secondary"
                 lineHeight={1}
               >
-                {new Date(post.createdAt).toLocaleDateString()}
+                {formatDistanceToNow(post.createdAt, {
+                  addSuffix: true,
+                })}
               </Typography>
             </Box>
           </Stack>

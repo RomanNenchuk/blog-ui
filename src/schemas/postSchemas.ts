@@ -1,10 +1,14 @@
 import z from "zod";
 
 export const postSchema = z.object({
-  title: z.string().trim().min(1, "Title is required").max(100, "Title must be at most 100 characters"),
-  content: z.string().trim().max(300, "Content must be at most 300 characters").nullable().optional().or(z.literal("")),
-  latitude: z.number().nullable().optional(),
-  longitude: z.number().nullable().optional(),
-  address: z.string().nullable().optional(),
+  title: z
+    .string()
+    .min(3, "Title must be at least 3 characters long")
+    .max(100, "Title too long"),
+  body: z
+    .string()
+    .min(10, "Body must be at least 10 characters long")
+    .max(5000, "Body too long"),
 });
-export type PostFormValues = z.infer<typeof postSchema>;
+
+export type PostFormData = z.infer<typeof postSchema>;
