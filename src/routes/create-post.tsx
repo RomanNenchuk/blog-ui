@@ -15,6 +15,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "@/components/layout/Header";
 import { createPost } from "@/api/post";
 import { postSchema, type PostFormData } from "@/schemas/postSchemas";
+import { useAuth } from "@/contexts/AuthProvider";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/create-post")({
   component: CreatePostPage,
@@ -23,6 +25,10 @@ export const Route = createFileRoute("/create-post")({
 function CreatePostPage() {
   const navigate = useNavigate();
   const theme = useTheme();
+  const { user } = useAuth();
+  useEffect(() => {
+    if (!user) navigate({ to: "/login", replace: true });
+  }, [user]);
 
   const {
     register,

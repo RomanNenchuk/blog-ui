@@ -11,6 +11,6 @@ type LoginPayload = {
 
 type RegisterPayload = {
   email: string;
-  displayName: string;
+  fullname: string;
   password: string;
 };

@@ -46,7 +46,6 @@ function PostsPage() {
           )}
         </Grid>
       </Container>
-
       <CreatePostButton />
     </Box>
   );

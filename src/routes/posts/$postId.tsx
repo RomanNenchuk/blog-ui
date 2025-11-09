@@ -11,6 +11,7 @@ import Header from "@/components/layout/Header";
 import PostCard from "@/components/posts/PostCard";
 import { getPostById } from "@/api/post";
 import EditPostButton from "@/components/posts/EditPostButton";
+import { useAuth } from "@/contexts/AuthProvider";
 
 export const Route = createFileRoute("/posts/$postId")({
   component: PostDetailsPage,
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/posts/$postId")({
 
 function PostDetailsPage() {
   const { postId } = useParams({ from: "/posts/$postId" });
+  const { user } = useAuth();
 
   const {
     data: post,
@@ -62,7 +64,7 @@ function PostDetailsPage() {
       <Container maxWidth="md" sx={{ py: 6 }}>
         <PostCard post={post} detailed />
       </Container>
-      <EditPostButton postId={post.id} />
+      {post.author.id === user?.id && <EditPostButton postId={post.id} />}
     </Box>
   );
 }

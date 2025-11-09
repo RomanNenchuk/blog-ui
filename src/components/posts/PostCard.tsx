@@ -3,6 +3,7 @@ import { useTheme } from "@mui/material/styles";
 import { formatDistanceToNow } from "date-fns";
 import UserAvatar from "../auth/UserAvatar";
 import { useNavigate } from "@tanstack/react-router";
+import TruncatedText from "../common/TruncatedText";
 
 export default function PostCard({
   post,
@@ -61,39 +62,20 @@ export default function PostCard({
             </Box>
           </Stack>
 
-          <Typography
+          <TruncatedText
             variant="body1"
             fontWeight={700}
-            sx={{
-              mb: 1,
-              overflow: detailed ? "visible" : "hidden",
-              textOverflow: detailed ? "clip" : "ellipsis",
-              whiteSpace: detailed ? "normal" : "nowrap",
-              ...(detailed && {
-                whiteSpace: "normal",
-                wordBreak: "break-word",
-                overflowWrap: "break-word",
-              }),
-            }}
-          >
-            {post.title}
-          </Typography>
+            gutterBottom
+            detailed={detailed}
+            text={post.title}
+          />
 
-          <Typography
+          <TruncatedText
             variant="body2"
             color="text.secondary"
-            sx={{
-              overflow: detailed ? "visible" : "hidden",
-              textOverflow: detailed ? "clip" : "ellipsis",
-              ...(detailed && {
-                whiteSpace: "normal",
-                wordBreak: "break-word",
-                overflowWrap: "break-word",
-              }),
-            }}
-          >
-            {post.body}
-          </Typography>
+            detailed={detailed}
+            text={post.body}
+          />
         </CardContent>
       </Card>
     </Grid>

@@ -76,7 +76,6 @@ function LoginPage() {
               linkText="Register"
               to="/register"
             />
-            <AuthPrompt linkText="Forgot Password?" to="/forgot-password" />
           </CardContent>
         </Card>
       </Box>
