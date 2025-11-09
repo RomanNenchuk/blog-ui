@@ -6,8 +6,6 @@ import UserAvatar from "../auth/UserAvatar";
 export default function PostCard({ post }: { post: Post }) {
   const theme = useTheme();
 
-  console.log(post);
-
   return (
     <Grid key={post.id} size={{ xs: 12, sm: 6 }}>
       <Card
