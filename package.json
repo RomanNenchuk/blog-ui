@@ -1,5 +1,5 @@
 {
-  "name": ".",
+  "name": "blog-ui",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,13 +14,8 @@
     "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
-    "@tailwindcss/vite": "^4.0.6",
-    "@tanstack/react-devtools": "^0.7.0",
     "@tanstack/react-query": "^5.66.5",
-    "@tanstack/react-query-devtools": "^5.84.2",
     "@tanstack/react-router": "^1.132.0",
-    "@tanstack/react-router-devtools": "^1.132.0",
-    "@tanstack/router-plugin": "^1.132.0",
     "axios": "^1.13.2",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.545.0",
@@ -31,6 +26,11 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.0.6",
+    "@tanstack/react-devtools": "^0.7.0",
+    "@tanstack/react-query-devtools": "^5.84.2",
+    "@tanstack/react-router-devtools": "^1.132.0",
+    "@tanstack/router-plugin": "^1.132.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^22.10.2",
