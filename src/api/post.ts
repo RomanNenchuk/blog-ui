@@ -15,6 +15,11 @@ export const createPost = async (postData: { title: string; body: string }) => {
   return data;
 };
 
+export const deletePost = async (postId: string) => {
+  const { data } = await apiClient.delete(`/posts/${postId}`);
+  return data;
+};
+
 export const updatePost = async (
   postId: string,
   postData: { title: string; body: string }

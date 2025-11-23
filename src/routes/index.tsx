@@ -34,7 +34,7 @@ function PostsPage() {
 
         <Divider sx={{ mb: 4 }} />
 
-        <Grid container spacing={3}>
+        <Grid container spacing={3} pb={10}>
           {isLoading ? (
             <PostsLoading />
           ) : isError ? (
