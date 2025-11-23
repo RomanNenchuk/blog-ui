@@ -53,7 +53,7 @@ function CreatePostPage() {
 
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
-      <Header />
+      <Header currentPage="create post" />
 
       <Container maxWidth="sm" sx={{ py: 6 }}>
         <Paper
