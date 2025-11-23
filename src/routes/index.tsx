@@ -25,7 +25,7 @@ function PostsPage() {
 
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
-      <Header />
+      <Header currentPage="home" />
 
       <Container maxWidth="md">
         <Typography variant="h4" fontWeight={600} sx={{ my: 3 }}>
